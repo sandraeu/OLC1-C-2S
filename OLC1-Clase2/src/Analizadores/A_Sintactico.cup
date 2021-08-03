@@ -1,0 +1,81 @@
+/*--------------- 1ra Area: Codigo de Usuario -----------------------*/
+//-------> importaciones, paquetes
+package Analizadores;
+import java_cup.runtime.Symbol;
+import olc1.clase2.Evaluar;
+import java.util.LinkedList;
+
+//------> Codigo para el parser,variables, metodos
+parser code{:
+
+        //Podemos crear variables, listas, etc;
+        // deben de ser staticas si se quieren usar fuera
+        
+        public static LinkedList<Evaluar> lista_evaluar;
+        
+
+        public void syntax_error(Symbol s)
+        {
+            System.err.println("Error en la Linea " + (s.right+1) +" Columna "+(s.left+1)+ ". Identificador "+s.value + " no reconocido. Se ha recuperado del error." );
+        }
+
+        public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception
+        {
+            System.err.println("Error en la Linea " + (s.right+1)+ " Columna "+(s.left+1)+". Identificador " +s.value + " no reconocido.");
+        }
+        
+:}
+
+//------> Codigo para las acciones gramaticales
+action code
+{:  :}
+
+/*--------------- 2da Area: Declaraciones -----------------------*/
+
+//------> declaracion de terminales 
+
+terminal String mas, por, div, menos, pyc, cora, corc, para, parc, eval, digito, unario;
+
+//------> declaracion de no terminales
+non terminal LinkedList<Evaluar> INICIO,  INSTRUCCIONES;
+non terminal Evaluar INSTRUCCION;
+non terminal Integer E;
+
+//------> precedencia
+precedence left mas, menos;
+precedence left por, div;
+precedence left unario;
+
+
+start with INICIO;
+
+/*--------------- 3ra Area: Reglas Semanticas -----------------------*/
+
+INICIO::= INSTRUCCIONES:a    {: lista_evaluar =a ;:} 
+       ;
+
+INSTRUCCIONES::= INSTRUCCIONES:a INSTRUCCION:b    {: RESULT = a; RESULT.add(b); :}
+       | INSTRUCCION:a                            {: RESULT = new LinkedList<>(); RESULT.add(a);  :}
+       ; 
+
+INSTRUCCION::= eval cora E:a corc pyc     {: RESULT = new Evaluar(a, aleft, aright);
+                                             /*System.out.println("El valor de la expresión es: "+a); */
+                                            :}
+       ; 
+
+
+E::= E:a mas E:b    {: RESULT=a+b; :}
+   | E:a menos E:b  {: RESULT=a-b; :}
+   | E:a por E:b    {: RESULT=a*b; :}
+   | E:a div E:b    {: RESULT=a/b; :}
+   | para E:a parc  {: RESULT=a; :}
+   | menos E:a      {: RESULT=a*(-1); :} %prec unario
+   | digito:a       {: RESULT=new Integer(a); :}
+   ;
+
+
+
+
+
+
+
