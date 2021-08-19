@@ -1,0 +1,69 @@
+
+
+/*--------------- 1ra Area: Codigo de Usuario -----------------------*/
+//-------> importaciones, paquetes
+package Analizadores;
+import java_cup.runtime.Symbol; 
+import olc1_clase4.Comparar;
+import java.util.LinkedList;
+
+//------> Codigo para el parser,variables, metodos
+parser code{:
+        public String resultado = "";
+        public static LinkedList<Object> instrucciones;
+        
+        
+
+        public void syntax_error(Symbol s)
+        {
+            System.err.println("Error en la Linea " + (s.right+1) +" Columna "+(s.left+1)+ ". Identificador "+s.value + " no reconocido. Se ha recuperado del error." );
+        }
+
+        public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception
+        {
+            System.err.println("Error en la Linea " + (s.right+1)+ " Columna "+(s.left+1)+". Identificador " +s.value + " no reconocido.");
+        }
+:}
+
+//------> Codigo para las acciones gramaticales
+action code
+{:  :}
+
+/*--------------- 2da Area: Declaraciones -----------------------*/
+
+//------> declaracion de terminales 
+
+terminal String coma, llava, llavc, para, parc, pyc, gre, comp, cadena;
+
+//------> declaracion de no terminales
+non terminal INICIO;
+non terminal LinkedList<Object> INSTRUCCIONES;
+non terminal Object INSTRUCCION;
+non terminal Comparar COMPARE;
+
+//------> precedencia de menor a mayor
+
+
+start with INICIO;
+
+/*--------------- 3ra Area: Reglas Semanticas -----------------------*/
+
+INICIO::= gre llava INSTRUCCIONES:a llavc   {: instrucciones = a;  :} 
+       ;
+
+INSTRUCCIONES::= INSTRUCCIONES:a INSTRUCCION:b    {: RESULT = a; RESULT.add(b); :}
+       | INSTRUCCION:a                            {: RESULT = new LinkedList<>(); RESULT.add(a);  :}
+       ; 
+
+INSTRUCCION::= COMPARE:a        {: RESULT = a; :}                     
+            ;
+
+COMPARE::= comp para cadena:a coma cadena:b parc pyc {: RESULT = new Comparar(a.substring(1,a.length()-1),b.substring(1,b.length()-1)); //le quitamos las comillas a las cadenas :}
+        ;
+ 
+
+
+
+
+
+
