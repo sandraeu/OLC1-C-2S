@@ -1,0 +1,103 @@
+
+
+/*--------------- 1ra Area: Codigo de Usuario -----------------------*/
+//-------> importaciones, paquetes
+package Analizadores;
+import java_cup.runtime.Symbol; 
+import olc1_clase4.Comparar;
+import java.util.LinkedList;
+import Reportes.Caracteristica;
+import Reportes.GBarras;
+import Reportes.Valor;
+
+
+//------> Codigo para el parser,variables, metodos
+parser code{:
+        public String resultado = "";
+        public static LinkedList<Object> instrucciones;
+        
+        
+
+        public void syntax_error(Symbol s)
+        {
+            System.err.println("Error en la Linea " + (s.right+1) +" Columna "+(s.left+1)+ ". Identificador "+s.value + " no reconocido. Se ha recuperado del error." );
+        }
+
+        public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception
+        {
+            System.err.println("Error en la Linea " + (s.right+1)+ " Columna "+(s.left+1)+". Identificador " +s.value + " no reconocido.");
+        }
+:}
+
+//------> Codigo para las acciones gramaticales
+action code
+{:  :}
+
+/*--------------- 2da Area: Declaraciones -----------------------*/
+
+//------> declaracion de terminales 
+
+terminal String coma, llava, llavc, para, parc, pyc, gre, comp, cadena,gbarras,titulo,ejex,valores,titulox,tituloy,digito,decimal,id,dospnts, cora, corc;
+
+//------> declaracion de no terminales
+non terminal INICIO;
+non terminal LinkedList<Object> INSTRUCCIONES;
+non terminal Object INSTRUCCION;
+non terminal Comparar COMPARE;
+
+non terminal GBarras GRAFICA_BARRAS;
+non terminal LinkedList<Caracteristica> CARACTERISTICAS;
+non terminal Caracteristica CARACTERISTICA;
+non terminal LinkedList<Valor> VALORES;
+non terminal Valor VALOR;
+
+//------> precedencia de menor a mayor
+
+
+start with INICIO;
+
+/*--------------- 3ra Area: Reglas Semanticas -----------------------*/
+
+INICIO::= gre llava INSTRUCCIONES:a llavc   {: instrucciones = a;  :} 
+       ;
+
+INSTRUCCIONES::= INSTRUCCIONES:a INSTRUCCION:b    {: RESULT = a; RESULT.add(b); :}
+       | INSTRUCCION:a                            {: RESULT = new LinkedList<>(); RESULT.add(a);  :}
+       ; 
+
+INSTRUCCION::= COMPARE:a        {: RESULT = a; :}       
+            | GRAFICA_BARRAS:a    {: RESULT = a; :}       
+            ;
+
+COMPARE::= comp para cadena:a coma cadena:b parc pyc {: RESULT = new Comparar(a.substring(1,a.length()-1),b.substring(1,b.length()-1)); //le quitamos las comillas a las cadenas :}
+        ;
+ 
+GRAFICA_BARRAS ::= gbarras llava CARACTERISTICAS:a llavc    {: RESULT = new GBarras(a); :}
+                ;
+
+CARACTERISTICAS::= CARACTERISTICAS:a CARACTERISTICA:b     {: RESULT = a; RESULT.add(b); :}
+                | CARACTERISTICA:a                        {: RESULT = new LinkedList<>(); RESULT.add(a);  :}
+                ;
+
+CARACTERISTICA::= titulo dospnts VALOR:a pyc                      {: RESULT = new Caracteristica(0,a); :}
+                | ejex dospnts cora VALORES:a corc pyc          {: RESULT = new Caracteristica(1,a); :}
+                | valores dospnts cora VALORES:a corc pyc       {: RESULT = new Caracteristica(2,a); :}
+                | titulox dospnts VALOR:a pyc                     {: RESULT = new Caracteristica(3,a); :}
+                | tituloy dospnts VALOR:a pyc                     {: RESULT = new Caracteristica(4,a); :}
+                ;
+
+VALORES::= VALORES:a coma VALOR:b    {: RESULT = a; RESULT.add(b); :}
+        | VALOR:a             {: RESULT = new LinkedList<>(); RESULT.add(a);  :}
+        ;
+
+
+
+VALOR ::= decimal:a     {: RESULT = new Valor(1, new Double(a)); :}
+        | digito:a      {: RESULT = new Valor(2, new Integer(a)); :}
+        | id:a          {: RESULT = new Valor(3, a); :}
+        | cadena:a      {: RESULT = new Valor(4, a.substring(1,a.length()-1)); :}
+        ;
+
+
+
+

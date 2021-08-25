@@ -22,6 +22,8 @@
 
 [Clase 5 - Análisis descendente y Manejo de errores](https://docs.google.com/presentation/d/1Tv6tXmuRfgWG4kXgYaKrWytSURO2yMZbdHkr-Ql37ik/edit?usp=sharing)
 
+[Clase 6 - Gramáticas LL y LR](https://docs.google.com/presentation/d/1zxW_vJ9C48jd1mexzT3hFAEJBBvfk2trilbwyb4pteE/edit?usp=sharing)
+
 # Librerias utilizadas 
 --------
 [JFLEX y CUP](https://drive.google.com/file/d/1my9U8TK5VQqvr4eiisXQo5oGy-INtrdv/view)
