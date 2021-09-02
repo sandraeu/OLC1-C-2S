@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<Form version="1.8" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+  <Properties>
+    <Property name="defaultCloseOperation" type="int" value="3"/>
+  </Properties>
+  <SyntheticProperties>
+    <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
+    <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
+  </SyntheticProperties>
+  <AuxValues>
+    <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
+    <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_i18nAutoMode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_layoutCodeTarget" type="java.lang.Integer" value="1"/>
+    <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
+  </AuxValues>
+
+  <Layout>
+    <DimensionLayout dim="0">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace min="-2" pref="82" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="jScrollPane2" alignment="1" max="32767" attributes="0"/>
+                  <Component id="jScrollPane1" alignment="0" pref="1245" max="32767" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="jButton1" min="-2" pref="92" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+              <EmptySpace min="-2" pref="86" max="-2" attributes="0"/>
+          </Group>
+      </Group>
+    </DimensionLayout>
+    <DimensionLayout dim="1">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
+              <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="jScrollPane1" min="-2" pref="377" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jButton1" alignment="3" min="-2" pref="41" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
+              <Component id="jScrollPane2" min="-2" pref="160" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
+          </Group>
+      </Group>
+    </DimensionLayout>
+  </Layout>
+  <SubComponents>
+    <Container class="javax.swing.JScrollPane" name="jScrollPane1">
+      <AuxValues>
+        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+      </AuxValues>
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+      <SubComponents>
+        <Component class="javax.swing.JTextArea" name="jTextArea1">
+          <Properties>
+            <Property name="columns" type="int" value="20"/>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Monospaced" size="24" style="0"/>
+            </Property>
+            <Property name="rows" type="int" value="5"/>
+            <Property name="text" type="java.lang.String" value="GenerarReporteEstadistico{ &#xa; Compare(&quot;D:\u005c\u005cEntrada\u005c\u005cproyecto1&quot;,&quot;D:\u005c\u005cEntrada\u005c\u005cproyecto2&quot;);&#xa;&#xa;    DefinirGlobales{&#xa;        string reporte1 = &quot;Probabilidades esperadas para Variables archivo archivo2vars.js&quot;;&#xa;        string reporte2 = &quot;Probabilidades obtenidos para Variables archivo archivo2vars.js&quot;;&#xa;&#xa;        double pe1 = 0;&#xa;        double pe2 = 1;&#xa;        double pe3 = 0;&#xa;        double pe4 = 1;&#xa;        double pe5 = 0;&#xa;        double pe6 = 1;&#xa;        double pe7 = 1;&#xa;&#xa;        double po1 = ${PuntajeEspecifico,&quot;archivo2vars.js&quot;,&quot;variable&quot;,&quot;punteo&quot;};&#xa;        double po2 = ${PuntajeEspecifico,&quot;archivo2vars.js&quot;,&quot;variable&quot;,&quot;validacion&quot;};&#xa;        double po3 = ${PuntajeEspecifico,&quot;archivo2vars.js&quot;,&quot;variable&quot;,&quot;aritmetica&quot;};&#xa;        double po4 = ${PuntajeEspecifico,&quot;archivo2vars.js&quot;,&quot;variable&quot;,&quot;punteo2&quot;};&#xa;        double po5 = ${PuntajeEspecifico,&quot;variables.js&quot;,&quot;variable&quot;,&quot;A&quot;};&#xa;        double po6 = ${PuntajeEspecifico,&quot;variables.js&quot;,&quot;variable&quot;,&quot;variable&quot;};&#xa;        double po7 = ${PuntajeEspecifico,&quot;variables.js&quot;,&quot;variable&quot;,&quot;compi1&quot;};&#xa;        &#xa;    }&#xa;&#xa;    GraficaBarras{&#xa;        Titulo: reporte1;&#xa;        Ejex: [ &quot;punteo&quot;, &quot;validacion&quot; , &quot;aritmetica&quot;, &quot;punteo2&quot; ];&#xa;        Valores: [ pe1, pe2, pe3, pe4 ];&#xa;        Titulox: &quot;Nombre de las variables&quot;;&#xa;        Tituloy: &quot;Puntaje&quot;;&#xa;    }&#xa;&#xa;    GraficaBarras{&#xa;        Titulo: reporte2;&#xa;        Ejex: [ &quot;punteo&quot;, &quot;validacion&quot; , &quot;aritmetica&quot;, &quot;punteo2&quot; ];&#xa;        Valores: [ po1, po2, po3, po4 ];&#xa;        Titulox: &quot;Nombre de las variables&quot;;&#xa;        Tituloy: &quot;Puntaje&quot;;&#xa;    }&#xa; &#xa;&#xa;}" containsInvalidXMLChars="true"/>
+          </Properties>
+        </Component>
+      </SubComponents>
+    </Container>
+    <Component class="javax.swing.JButton" name="jButton1">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Analizar"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+      </Events>
+    </Component>
+    <Container class="javax.swing.JScrollPane" name="jScrollPane2">
+      <AuxValues>
+        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+      </AuxValues>
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+      <SubComponents>
+        <Component class="javax.swing.JTextArea" name="jTextArea2">
+          <Properties>
+            <Property name="columns" type="int" value="20"/>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Monospaced" size="18" style="0"/>
+            </Property>
+            <Property name="rows" type="int" value="5"/>
+          </Properties>
+        </Component>
+      </SubComponents>
+    </Container>
+    <Component class="javax.swing.JLabel" name="jLabel1">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Tahoma" size="18" style="1"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Consola:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel2">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Tahoma" size="18" style="1"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Entrada:"/>
+      </Properties>
+    </Component>
+  </SubComponents>
+</Form>

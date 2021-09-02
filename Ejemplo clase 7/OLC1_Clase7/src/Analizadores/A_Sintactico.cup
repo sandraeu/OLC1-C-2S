@@ -1,0 +1,185 @@
+
+/*--------------- 1ra Area: Codigo de Usuario -----------------------*/
+//-------> importaciones, paquetes
+package Analizadores;
+import java_cup.runtime.Symbol;
+import olc1_clase4.Nodo;
+import olc1_clase4.Editor;
+import olc1_clase4.Errores;
+
+
+
+//------> Codigo para el parser,variables, metodos
+parser code{:
+        public String resultado = "";
+        public static Nodo raiz; 
+        
+        public Nodo getRaiz(){
+            return raiz;
+        }
+
+        public void syntax_error(Symbol s)
+        {
+            System.out.println("Error en la Linea " + (s.right+1) +" Columna "+(s.left+1)+ ". Identificador "+s.value + " no reconocido. Se ha recuperado del error." );
+            Errores nuevo_error = new Errores("Error sintactico", s.value.toString(), s.right+1, s.left+1);
+            Editor.lista_errores.add(nuevo_error);
+            System.out.println(nuevo_error.tipo + " " +   nuevo_error.valor + " " + nuevo_error.fila);
+        }
+
+        public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception
+        {
+            System.err.println("Error en la Linea " + (s.right+1)+ " Columna "+(s.left+1)+". Identificador " +s.value + " no reconocido.");
+            Errores nuevo_error = new Errores("Error sintactico (No recuperado)", s.value.toString(), s.right+1, s.left+1);
+            Editor.lista_errores.add(nuevo_error);
+        }
+:}
+
+//------> Codigo para las acciones gramaticales
+action code
+{:  :}
+
+/*--------------- 2da Area: Declaraciones -----------------------*/
+
+//------> declaracion de terminales 
+
+terminal String digito, mas, menos, por, div, para, parc, decimal, id, cadena, let, var, constante, igual, pyc, menorque, mayorque, llava;
+
+//------> declaracion de no terminales
+non terminal String INICIO;
+non terminal Nodo E, DECLARACION, INSTRUCCION, INSTRUCCIONES;
+
+//------> precedencia de menor a mayor
+precedence left menorque, mayorque;
+precedence left mas, menos;
+precedence left por, div;
+
+
+
+start with INICIO;
+
+/*--------------- 3ra Area: Reglas Semanticas -----------------------*/
+
+INICIO::= INSTRUCCIONES:a    {: parser.raiz = a;  :} 
+       ;
+
+INSTRUCCIONES::= INSTRUCCIONES:a INSTRUCCION:b  {: Nodo padre = new Nodo("INSTRUCCIONES", "", 0, 0);
+                                                    padre.AddHijo(a);
+                                                    padre.AddHijo(b);
+                                                    RESULT = padre;            
+                                                :}
+                | INSTRUCCION:a                 {:  Nodo padre = new Nodo("INSTRUCCIONES", "", 0, 0);
+                                                    padre.AddHijo(a);
+                                                    RESULT = padre;            
+                                                :}
+                ;
+
+INSTRUCCION::= DECLARACION:a        {: RESULT = a; :}   
+            ;
+
+DECLARACION::= let:a id:b igual:c E:d pyc:e       {:  Nodo padre = new Nodo("DECLARACION", "", 0, 0); 
+                                                    padre.AddHijo(new Nodo("let", a, aright, aleft));           //agregamos como hijo la palabra reservada let
+                                                    padre.AddHijo(new Nodo("identificador", b, bright, bleft)); //agregamos como hijo el id
+                                                    padre.AddHijo(new Nodo("igual", c, cright, cleft));         //agregamos como hijo el signo igual
+                                                    padre.AddHijo(d);                                           //agregamos como hijo la expresion
+                                                    padre.AddHijo(new Nodo("pyc", e, eright, eleft));           //agregamos como el punto y coma
+                                                    RESULT = padre;                                             //retornamos el nodo padre 
+                                                 :}
+             | constante:a id:b igual:c E:d pyc:e {:  Nodo padre = new Nodo("DECLARACION", "", 0, 0); 
+                                                    padre.AddHijo(new Nodo("const", a, aright, aleft));         //agregamos como hijo la palabra reservada const
+                                                    padre.AddHijo(new Nodo("identificador", b, bright, bleft)); //agregamos como hijo el id
+                                                    padre.AddHijo(new Nodo("igual", c, cright, cleft));         //agregamos como hijo el signo igual
+                                                    padre.AddHijo(d);                                           //agregamos como hijo la expresion
+                                                    padre.AddHijo(new Nodo("pyc", e, eright, eleft));           //agregamos como el punto y coma
+                                                    RESULT = padre;                                             //retornamos el nodo padre 
+                                                 :}
+             | var:a id:b igual:c E:d pyc:e     {:  Nodo padre = new Nodo("DECLARACION", "", 0, 0); 
+                                                    padre.AddHijo(new Nodo("var", a, aright, aleft));           //agregamos como hijo la palabra reservada var
+                                                    padre.AddHijo(new Nodo("identificador", b, bright, bleft)); //agregamos como hijo el id
+                                                    padre.AddHijo(new Nodo("igual", c, cright, cleft));         //agregamos como hijo el signo igual
+                                                    padre.AddHijo(d);                                           //agregamos como hijo la expresion
+                                                    padre.AddHijo(new Nodo("pyc", e, eright, eleft));           //agregamos como el punto y coma
+                                                    RESULT = padre;                                             //retornamos el nodo padre 
+                                                 :}
+             | error pyc                       {: RESULT = new Nodo("ERROR", "", 0, 0);  :}      
+             | error llava
+             ;
+
+E ::= E:a mas:b E:c     {: Nodo padre = new Nodo("E", "", 0, 0);
+                           padre.AddHijo(a);                                  //agregamos la expresion del lado izq
+                           Nodo hijo1 = new Nodo("mas", b, bright, bleft);
+                           padre.AddHijo(hijo1);                              //agregamos el signo mas 
+                           padre.AddHijo(c);                                  //agregamos la expresion del lado der
+                           RESULT = padre;                                    //retornamos el nodo padre 
+                        :}
+    | E:a menos:b E:c   {: Nodo padre = new Nodo("E", "", 0, 0);
+                           padre.AddHijo(a);                                  //agregamos la expresion del lado izq
+                           Nodo hijo1 = new Nodo("menos", b, bright, bleft);
+                           padre.AddHijo(hijo1);                              //agregamos el signo menos 
+                           padre.AddHijo(c);                                  //agregamos la expresion del lado der
+                           RESULT = padre;                                    //retornamos el nodo padre 
+                        :}
+    | E:a div:b E:c     {: Nodo padre = new Nodo("E", "", 0, 0);
+                           padre.AddHijo(a);                                  //agregamos la expresion del lado izq
+                           Nodo hijo1 = new Nodo("por", b, bright, bleft);
+                           padre.AddHijo(hijo1);                              //agregamos el signo por 
+                           padre.AddHijo(c);                                  //agregamos la expresion del lado der
+                           RESULT = padre;                                    //retornamos el nodo padre 
+                        :}
+    | E:a por:b E:c     {: Nodo padre = new Nodo("E", "", 0, 0);
+                           padre.AddHijo(a);                                  //agregamos la expresion del lado izq
+                           Nodo hijo1 = new Nodo("por", b, bright, bleft);
+                           padre.AddHijo(hijo1);                              //agregamos el signo por 
+                           padre.AddHijo(c);                                  //agregamos la expresion del lado der
+                           RESULT = padre;                                    //retornamos el nodo padre 
+                        :}
+    | E:a menorque:b E:c {: Nodo padre = new Nodo("E", "", 0,0); 
+                        padre.AddHijo(a);
+                        padre.AddHijo(new Nodo("menorque", b, bright, bleft));
+                        padre.AddHijo(c);
+                        RESULT = padre;                                         
+                    :}
+   | E:a mayorque:b E:c {: Nodo padre = new Nodo("E", "", 0,0); 
+                        padre.AddHijo(a);
+                        padre.AddHijo(new Nodo("mayorque", b, bright, bleft));
+                        padre.AddHijo(c);
+                        RESULT = padre;                                         
+                    :}
+    | para:a E:b parc:c {: Nodo padre = new Nodo("E", "", 0, 0); 
+                           Nodo hijo1 = new Nodo("para", a, aright, aleft); 
+                           padre.AddHijo(hijo1);                                //agregamos como hijo el parentesis que abre
+                           padre.AddHijo(b);                                    //agregamos como hijo la expresion
+                           Nodo hijo2 = new Nodo("parc", c, cright, cleft);     
+                           padre.AddHijo(hijo2);                                //agregamos como hijo el parentesis que cierra
+                           RESULT = padre;                                      //retornamos el nodo padre 
+                        :}
+    | digito:a          {: Nodo padre = new Nodo("E", "", 0, 0);
+                           Nodo hijo = new Nodo("digito", a, aright, aleft);
+                           padre.AddHijo(hijo);
+                           RESULT = padre;            
+                        :}
+    | id:a              {: Nodo padre = new Nodo("E", "", 0, 0);
+                           Nodo hijo = new Nodo("identificador", a, aright, aleft);
+                           padre.AddHijo(hijo);
+                           RESULT = padre;            
+                        :}
+    | cadena:a          {: Nodo padre = new Nodo("E", "", 0, 0);
+                           Nodo hijo = new Nodo("cadena", a, aright, aleft);
+                           padre.AddHijo(hijo);
+                           RESULT = padre;            
+                        :}
+    | decimal:a         {: Nodo padre = new Nodo("E", "", 0, 0);
+                           Nodo hijo = new Nodo("decimal", a, aright, aleft);
+                           padre.AddHijo(hijo);
+                           RESULT = padre;            
+                        :}
+    | error 
+    ;
+
+
+ 
+
+
+
+
+
+
