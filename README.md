@@ -26,6 +26,10 @@
 
 [Clase 7 - Repaso](https://docs.google.com/presentation/d/1V6EVPvX_GkN0_OXdIyfwCWNmN5kxjZ_huguP3j3IGKM/edit?usp=sharing)
 
+[Clase 8 - Jison](https://docs.google.com/presentation/d/1EyLReLQxFLW9uO1vFxm2N3v4zGHE790mYqAJfpqMxqs/edit?usp=sharing)
+
+[Clase 9 - Patron Interpreter](https://docs.google.com/presentation/d/1rj5QpxM8v842mvCUNDB84Nxho8c9Tk8FBzG-17MutXM/edit?usp=sharing)
+
 # Librerias utilizadas 
 --------
 [JFLEX y CUP](https://drive.google.com/file/d/1my9U8TK5VQqvr4eiisXQo5oGy-INtrdv/view)
