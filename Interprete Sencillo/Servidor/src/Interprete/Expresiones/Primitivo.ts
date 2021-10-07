@@ -35,7 +35,7 @@ export default class Primitivo implements Expresion{
     }
 
     getTipo(controlador: Controlador, ts: TablaSimbolos): tipo {
-        return this.tipo.n_tipo;
+        return this.tipo.enum_tipo;
     }
     
     getValor(controlador: Controlador, ts: TablaSimbolos) {

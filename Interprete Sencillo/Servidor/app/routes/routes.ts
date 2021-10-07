@@ -1,4 +1,5 @@
 import express = require('express');
+import Ast from '../../src/Interprete/Ast/Ast';
 import Controlador from '../../src/Interprete/Controlador';
 import TablaSimbolos from '../../src/Interprete/TablaSimbolos/TablaSimbolos';
 
@@ -15,14 +16,17 @@ router.get('/', function(req, res){
 router.post('/ejecutar', function(req, res) {
     try {
         const { input } = req.body;
-        let arreglo = interprete.parse(input);
+        let ast : Ast = interprete.parse(input);
         
         let respuesta = "";
 
         let controlador = new Controlador();
-        let ts_global = new TablaSimbolos();
+        let ts_global = new TablaSimbolos(null);
 
-        for(let evaluar of arreglo){
+        ast.ejecutar(controlador, ts_global);
+
+
+       /* for(let evaluar of arreglo){
             let valor = evaluar.expresion.getValor(controlador,ts_global);
 
             if(valor != null){
@@ -33,8 +37,8 @@ router.post('/ejecutar', function(req, res) {
                 respuesta += `El valor de la expresion es : ERROR \n`;
             }
             
-        }
-        res.status(200).json({resultado : respuesta});
+        }*/
+        res.status(200).json({consola : controlador.consola});
     } catch (error) {
         console.log(error);
         res.status(500).json({resultado : "Se ha producido un error"});

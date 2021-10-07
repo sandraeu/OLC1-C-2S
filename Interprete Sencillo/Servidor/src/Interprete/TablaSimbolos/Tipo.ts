@@ -17,14 +17,14 @@ export enum tipo{
  */
 export default class Tipo{
     public nombre_tipo : string;
-    public n_tipo : tipo;
+    public enum_tipo : tipo;
 
     /**
      * @constructor Guarda el string con el nombre del tipo y el enum que identifica al tipo
      */
     constructor(nombre_tipo : string) {
         this.nombre_tipo = nombre_tipo;
-        this.n_tipo = this.gettipo();
+        this.enum_tipo = this.gettipo();
     }
     
     gettipo(): tipo{
