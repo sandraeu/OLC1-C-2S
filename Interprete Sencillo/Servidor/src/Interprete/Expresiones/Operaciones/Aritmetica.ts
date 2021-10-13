@@ -1,3 +1,4 @@
+import Errores from "../../Ast/Errores";
 import Nodo from "../../Ast/Nodo";
 import Controlador from "../../Controlador";
 import { Expresion } from "../../Interfaces/Expresion";
@@ -246,7 +247,11 @@ export default class Aritmetica extends Operacion implements Expresion{
                     }else if(tipo_exp2 == tipo.CADENA){
                         return valor_exp1 + valor_exp2;
                     }else{
-                        //TODO: reportar error semantico
+                        // 3.4 +  id (id no existe en la tabla de simblos)
+                        let error = new Errores("Semantico", `Incompatibilidad de tipos, no se puede operar la SUMA porque se produjo un error.`, this.linea, this.columna);
+                        controlador.errores.push(error);
+                        controlador.append(` *** ERROR: Semantico, Incompatibilidad de tipos, no se puede operar la SUMA porque se produjo un error. En la linea ${this.linea} y columna ${this.columna}`)
+                
                         return null;
                     }
                 }else if(tipo_exp1 == tipo.BOOLEANO){

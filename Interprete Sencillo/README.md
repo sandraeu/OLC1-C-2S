@@ -3,6 +3,23 @@
 ### Herramientas 
 - [NodeJs](https://nodejs.org/en/)
 - [Jison](http://zaa.ch/jison/docs/)
+- [CodeMirror](https://codemirror.net/)
+---------
+
+## Cliente
+### Instalacion
+
+Instalamos el editor de texto  
+```
+npm install codemirror
+```
+
+### Funcionalidades
+- Área de texto para escribir el código de entrada. 
+- Ejecución de código.
+- Consola de salida.
+- Cargar archivo de entrada. 
+- Comunicación con API para obtener la salida del programa. 
 
 ---------
 
@@ -22,19 +39,30 @@ npm start
 
 ---------
 
-Para probar podemos utilizar [postman](https://www.postman.com/) u otra herramienta para el testing de API REST.
+Actualmente tiene las siguientes funcionalidades, las cuales unicamente estan de referencia para saber como implementar, aún faltan agregar más validaciones.
 
-```
-Método: POST
-Ruta: http://localhost:3000/api/ejecutar
-Body(json):  { "input": "Evaluar[((-(1+1+1+1+1-5-10)+(4*3-5^3))+8200*3/10)*3]; Evaluar[5+true]; Evaluar[7+'A']; Evaluar[0+\"hola\"]; Evaluar[true + false]; Evaluar[18-13];  Evaluar[8*9+7^5];" }
+#### Instrucciones
+- Declaración de variables
+- Asignación de variables
+- Sentencia de control if 
+- Sentencia ciclica while
+- Funcion WriteLine
+- Sentencia de transferencia Break
 
-```
+#### Expresiones
+- Tipos primitivos (Entero, doble, caracter, cadena, booleano)
+- Operaciones aritmeticas (suma) 
+- Operaciones relacionales (menorque, igualque)
+- Operaciones logicas (and, or, not)
+- Ternario
+- Identificador
 
-El cuál nos retornara como resultado 
+#### Otras 
+- Manejo de tabla de simbolos 
+- Ast 
+- Comentarios
+- Manejo de errores semanticos 
 
-```
-{
-    "resultado": "El valor de la expresion es : 7071 \nEl valor de la expresion es : 6 \nEl valor de la expresion es : 72 \nEl valor de la expresion es : 0hola \nEl valor de la expresion es : ERROR \nEl valor de la expresion es : 5 \nEl valor de la expresion es : 16879 \n"
-}
-```
+
+> Para probar podemos utilizar el Cliente que se encuentra en este repo. 
+

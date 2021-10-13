@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" >
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+
+    <link rel="stylesheet" href="node_modules/codemirror/theme/darcula.css">
+    <link rel="stylesheet" href="node_modules/codemirror/lib/codemirror.css">
+    
+    <title>Interprete</title>
+</head>
+<body class="body" >
+    <nav  class="navbar navbar-expand-lg navbar-light" style="background-color: #06141d60;">
+        <div class="container-fluid">
+            
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <button class="btn btn-outline-info" type="submit">Nuevo</button>
+                <input class="btn btn-outline-info" type="file" id="file-input" />
+                <button class="btn btn-outline-info" type="submit">Guardar</button>
+                
+            </ul>
+          </div>
+    </nav >
+    <div class="col-auto">
+        <h2>Interprete Compiladores 1 - C</h2>
+        <br>
+        <div>
+            <div class="form-floating" rows="10" cols="40" style="height: 300px" >
+                <textarea class="editor" id="floatingTextarea2" name="floatingTextarea2"></textarea>
+            </div>
+        </div>
+
+        <br>
+        <div class="row justify-content-end">
+            <div class="col-3">
+                <button class="btn btn-outline-warning btn-lg" onclick="compilar()">Compilar</button>
+            </div>
+        </div>
+        <br>
+
+        <div class="consola">
+            <div class="form-floating">
+                <textarea class="console" id="consola" >consola...</textarea>
+            </div>
+        </div> 
+        <br><br>
+
+        <button class="tablink" onclick="openPage('TablaSim')">Tabla de Simbolos</button>
+  
+    
+        <div id="TablaSim" class="tabcontent" style="background-color: #06141d60;">
+          
+        </div>
+    
+    
+      <br><br>
+    </div>
+    <script src="funcionalidad.js"></script>
+    <script src="node_modules/codemirror/lib/codemirror.js"></script> 
+    <script src="node_modules/codemirror/mode/javascript/javascript.js"></script>
+    <script>
+        var editor = CodeMirror.fromTextArea(document.getElementById("floatingTextarea2"), {
+          lineNumbers: true,  
+          styleActiveLine: true,  
+          matchBrackets: true,
+          theme : "dracula",
+        });
+        editor.setValue(`//-- DECLARACION DE VARIABLES
+int i = 1 + 'A' + true;
+double dob1, dob2, dob3, dob4 = 10 + 20.15 + 29 + 1.5;
+string cadena = "Hola" + " " + 'M' + 'U' + 'N' + 'D' + 'O';
+boolean ternario = 48 < 8 ? true : 5 == 9;
+
+WriteLine("i = " + i);
+WriteLine("dob1 = " + dob1 + ", dob2 =" + dob2 + ", dob3 = " + dob3 + ", dob4 = " + dob4);
+WriteLine("cadena = " + cadena);
+WriteLine("ternario = " + ternario);
+
+//-- ASIGNACION DE VARIABLES 
+dob3 = dob1 + dob2 + dob3 + dob4 + i + ternario;
+WriteLine("dob1 = " + dob1 + ", dob2 =" + dob2 + ", dob3 = " + dob3 + ", dob4 = " + dob4);
+
+//-- SENTENCIA IF-ELSEIF-ELSE
+if(ternario){
+  WriteLine("No deberia de imprimir esto");
+}else if(!!ternario){
+  WriteLine("No deberia de imprimir esto x2");
+}else if(true && ternario){
+  WriteLine("No deberia de imprimir esto x3");
+}else{
+  WriteLine("Ternario funciona correctamente");
+}
+//-- SENTENCIA WHILE
+i = 0;
+while(i < 2){
+  WriteLine("Esto se imprime 2 veces");
+  i = i + 1;
+}
+
+//-- SENTENCIA BREAK 
+i = 0;
+while(i< 10){
+   if(false){
+     writeLine("Esto no se imprime ");
+   }else if(i == 6){
+      break;
+   }else{
+     writeLine("i = " + i);
+   }
+   i = i + 1;
+}
+
+//-- ERRORES SEMANTICOS 
+x = 20;
+if(true){
+  break;
+}`)
+      </script>
+</body>
+</html>

@@ -17,7 +17,7 @@ export interface Expresion{
      * @param controlador llevamos el control de todo el programa
      * @param ts accede a la tabla de simbolos
      */
-    getTipo(controlador : Controlador, ts : TablaSimbolos) : tipo;
+    getTipo(controlador : Controlador, ts : TablaSimbolos) : tipo ;
 
 
     /**

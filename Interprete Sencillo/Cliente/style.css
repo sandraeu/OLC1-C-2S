@@ -1,0 +1,146 @@
+body {
+    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+	background-size: 400% 400%;
+	animation: gradient 15s ease infinite;
+	height: 100vh;
+}
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+
+h2 {
+    color: aliceblue;
+    margin-top: 0;
+	font-weight: 500;
+	/* Hello stylesheet! */
+	width: 80vw;
+}
+
+.editor {
+    margin-top: 5%;
+    margin-left: 10%;
+    margin-right: 10%;
+    height: 300px;
+    width: 80%;
+    background-color: #e6e6eb;
+    border-radius:10px 10px 10px 10px;
+    color: rgb(3, 8, 5);
+}
+
+.console {
+    margin-left: 10%;
+    margin-right: 10%;
+    height: 300px;
+    width: 80%;
+    background-color: #262627;
+    border-radius:10px 10px 10px 10px;
+    color: rgb(39, 235, 114);
+}
+
+.btn-outline-info {
+    color: beige;
+    background-color: #23a5d54d;
+    margin-left: 3%;
+    margin-right: 3%;
+}
+
+.btn-lg{
+    width: 50%;
+}
+
+.form-floating {
+    margin-left: 10%;
+    margin-right: 10%;
+    height: 70%;
+    width: 80%;
+    border-radius:10px 10px 10px 10px;
+}
+
+/*--------*/
+
+.ui-tabs {
+	position: relative;/* position: relative prevents IE scroll bug (element with position: relative inside container with overflow: auto appear as "fixed") */
+	padding: .2em;
+}
+.ui-tabs .ui-tabs-nav {
+	margin: 0;
+	padding: .2em .2em 0;
+}
+.ui-tabs .ui-tabs-nav li {
+	list-style: none;
+	float: left;
+	position: relative;
+	top: 0;
+	margin: 1px .2em 0 0;
+	border-bottom-width: 0;
+	padding: 0;
+	white-space: nowrap;
+}
+.ui-tabs .ui-tabs-nav li a {
+	float: left;
+	padding: .5em 1em;
+	text-decoration: none;
+}
+.ui-tabs .ui-tabs-nav li.ui-tabs-active {
+	margin-bottom: -1px;
+	padding-bottom: 1px;
+}
+.ui-tabs .ui-tabs-nav li.ui-tabs-active a,
+.ui-tabs .ui-tabs-nav li.ui-state-disabled a,
+.ui-tabs .ui-tabs-nav li.ui-tabs-loading a {
+	cursor: text;
+}
+.ui-tabs .ui-tabs-nav li a, /* first selector in group seems obsolete, but required to overcome bug in Opera applying cursor: text overall if defined elsewhere... */
+.ui-tabs-collapsible .ui-tabs-nav li.ui-tabs-active a {
+	cursor: pointer;
+}
+.ui-tabs .ui-tabs-panel {
+	display: block;
+	border-width: 0;
+	padding: 1em 1.4em;
+	background: none;
+}
+
+/* Set height of body and the document to 100% to enable "full page tabs" */
+body, html {
+	height: 100%;
+	margin: 0;
+	font-family: Arial;
+  }
+  
+  /* Style tab links */
+  .tablink {
+	background-color: #06141d60;
+	color: white;
+	float: left;
+	border: none;
+	outline: none;
+	cursor: pointer;
+	padding: 14px 16px;
+	font-size: 17px;
+	width: 25%;
+    margin-left: 10%;
+    margin-right: 10%;
+  }
+  
+  .tablink:hover {
+	background-color: #06141d60; 
+  }
+  
+  /* Style the tab content (and add height:100% for full page content) */
+  .tabcontent {
+	color: white;
+	display: none;
+	padding: 100px 20px;
+	height: 100%;
+    margin-left: 10%;
+    margin-right: 10%;
+  }
