@@ -39,7 +39,7 @@ export default class Tipo{
         }else if(this.nombre_tipo == 'BOOLEANO'){
             return tipo.BOOLEANO;
         }else if(this.nombre_tipo == 'VOID'){
-            return tipo.BOOLEANO;
+            return tipo.VOID;
         }else{
             return tipo.ERROR;
         }

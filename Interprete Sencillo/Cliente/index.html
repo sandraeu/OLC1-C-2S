@@ -131,7 +131,28 @@ switch(caso){
   	default:
     	writeline("estamos en el default......"); 
 }
-    
+
+//-- CONTINUE 
+i = 0;
+while(i < 3){
+	if(i == 1){
+      i++;
+      continue;
+    }
+	writeline(i);
+	i++;
+}
+
+//-- RECURSIVIDAD
+int m = 3;
+int n = 4;
+
+writeline("Funcion de Ackerman (" + m + ", " + n + ") = " + ackerman(m, n));
+
+int ackerman(int m, int n) {
+     return (m == 0 ? n + 1 : (m > 0 && n == 0 ? ackerman(m - 1, 1) : ackerman(m - 1, ackerman(m, n - 1))));
+}
+
 
 //-- ERRORES SEMANTICOS 
 x = 20;

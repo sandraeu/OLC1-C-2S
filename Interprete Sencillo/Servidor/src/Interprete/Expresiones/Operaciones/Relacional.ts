@@ -201,6 +201,12 @@ export default class Relacional extends Operacion implements Expresion{
             } 
             
             break;
+            case Operador.MAYORQUE:
+            if(tipo_exp1 == tipo.ENTERO){
+                if(tipo_exp2 == tipo.ENTERO || tipo_exp2 == tipo.DOBLE){
+                    return valor_exp1 > valor_exp2;
+                }
+            }
             default:
                 break;
         }

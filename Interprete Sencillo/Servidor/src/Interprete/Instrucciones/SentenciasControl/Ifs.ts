@@ -7,6 +7,7 @@ import TablaSimbolos from "../../TablaSimbolos/TablaSimbolos";
 import { tipo } from "../../TablaSimbolos/Tipo";
 import Break from "../SentenciasTransferencia/Break";
 import Continue from "../SentenciasTransferencia/Continue";
+import Retorno from "../SentenciasTransferencia/Return";
 
 export default class Ifs implements Instruccion{
 
@@ -63,6 +64,14 @@ export default class Ifs implements Instruccion{
                             controlador.append(` *** ERROR: Semantico, No se puede ejecutar la sentencia de transferencia Continue dentro de la sentencia de control if. En la linea ${this.linea} y columna ${this.columna}`)
                         }
                     }
+
+                    if(ret instanceof Retorno){
+                        return ret; 
+                    }
+
+                    if( ret != null){
+                        return ret;
+                    }
                 }
             }else{
                 /**
@@ -76,6 +85,13 @@ export default class Ifs implements Instruccion{
                         }else{
                             //error semantico, no se puede tener un break dentro de un else 
                         }
+                    }
+                    if(ret instanceof Retorno){
+                        return ret; 
+                    }
+
+                    if( ret != null){
+                        return ret;
                     }
                 }
             }

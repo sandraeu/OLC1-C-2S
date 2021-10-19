@@ -1,5 +1,6 @@
 import Controlador from "../Controlador";
 import Declaracion from "../Instrucciones/Declaracion";
+import Funcion from "../Instrucciones/Funcion";
 import { Instruccion } from "../Interfaces/Instruccion";
 import TablaSimbolos from "../TablaSimbolos/TablaSimbolos";
 import Nodo from "./Nodo";
@@ -14,17 +15,24 @@ export default class Ast implements Instruccion{
 
 
     ejecutar(controlador: Controlador, ts: TablaSimbolos) {
+        //1era pasada vamos a guardar las funciones y metodos del programa
+        for(let instruccion of this.lista_instrucciones){
+            if(instruccion instanceof Funcion){
+                let funcion = instruccion as Funcion;
+                funcion.agregarFuncionTS(ts);
+            }
+        }
         // Vamos a recorrer las instrucciones que vengan desde la gramatica 
         // writeline(x);
         // int x = 9;
-        //1 era pasada. ejecutar las declaraciones de variables
+        //2 da pasada. ejecutar las declaraciones de variables
         for(let instruccion of this.lista_instrucciones){
             if(instruccion instanceof Declaracion){
                 instruccion.ejecutar(controlador,ts);
             }
         }
 
-        //2da pada. ejecutamos todas las demas instrucciones
+        //3ra pada. ejecutamos todas las demas instrucciones
         for(let instruccion of this.lista_instrucciones){
             if(!(instruccion instanceof Declaracion)){
                 instruccion.ejecutar(controlador,ts);
