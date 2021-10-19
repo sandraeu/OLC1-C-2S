@@ -6,6 +6,7 @@ import { Instruccion } from "../../Interfaces/Instruccion";
 import TablaSimbolos from "../../TablaSimbolos/TablaSimbolos";
 import { tipo } from "../../TablaSimbolos/Tipo";
 import Break from "../SentenciasTransferencia/Break";
+import Continue from "../SentenciasTransferencia/Continue";
 
 export default class Ifs implements Instruccion{
 
@@ -51,6 +52,15 @@ export default class Ifs implements Instruccion{
                             let error = new Errores("Semantico", `No se puede ejecutar la sentencia de transferencia Break dentro de la sentencia de control if.`, this.linea, this.columna);
                             controlador.errores.push(error);
                             controlador.append(` *** ERROR: Semantico, No se puede ejecutar la sentencia de transferencia Break dentro de la sentencia de control if. En la linea ${this.linea} y columna ${this.columna}`)
+                        }
+                    }
+                    if(ret instanceof Continue){
+                        if(controlador.sent_ciclica){
+                            return ret;
+                        }else{
+                            let error = new Errores("Semantico", `No se puede ejecutar la sentencia de transferencia Continue dentro de la sentencia de control if.`, this.linea, this.columna);
+                            controlador.errores.push(error);
+                            controlador.append(` *** ERROR: Semantico, No se puede ejecutar la sentencia de transferencia Continue dentro de la sentencia de control if. En la linea ${this.linea} y columna ${this.columna}`)
                         }
                     }
                 }
