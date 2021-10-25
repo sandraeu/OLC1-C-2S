@@ -60,7 +60,7 @@ export default class Llamada implements Instruccion, Expresion{
             //3. obtener el simbolo del metodo 
             let simbolo_funcion = ts.getSimbolo(this.identificador)  as Funcion;
 
-
+            console.log("llamada");
             //4. verificar si los parametros estan correctos
             if(this.validar_parametros(this.parametros, simbolo_funcion.lista_params!, controlador, ts, ts_local)){
                 let retorno = simbolo_funcion.ejecutar(controlador, ts_local);
@@ -78,6 +78,7 @@ export default class Llamada implements Instruccion, Expresion{
     validar_parametros(parametros_llamada : Array<Expresion>, parametros_funcion: Array<Simbolo>, controlador : Controlador, ts: TablaSimbolos, ts_local: TablaSimbolos){
         /* 4. Verificar si la cantidad de parámetros en la llamada 
             es igual a la cantidad de parámetros que posee el método. */
+            console.log("validar params");
         if(parametros_llamada.length == parametros_funcion.length){
             //--> parametros desde funcion/metodo
             let aux : Simbolo; // -> parametro
@@ -115,8 +116,9 @@ export default class Llamada implements Instruccion, Expresion{
             return true;
         }else {
             //reportamos error semantico
+            return false;
         }
-        return false;
+        return true;
          
     }
 

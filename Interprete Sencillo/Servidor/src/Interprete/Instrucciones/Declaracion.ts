@@ -46,7 +46,18 @@ export default class Declaracion implements Instruccion{
                     let nuevo_simbolo = new Simbolo(1, this.type, id, valor);
                     ts.agregar(id, nuevo_simbolo);
                 }else{
-                    //reportar error semantico 
+                    //Tomar en cuenta casteos implicitos
+                    if(this.type.enum_tipo == tipo.DOBLE && tipo_valor == tipo.ENTERO){
+                        let nuevo_simbolo = new Simbolo(1, this.type, id, valor);
+                        ts.agregar(id, nuevo_simbolo); 
+                    }else if(this.type.enum_tipo == tipo.ENTERO && tipo_valor == tipo.DOBLE){
+                        let nuevo_simbolo = new Simbolo(1, this.type, id, Math.trunc(valor));
+                        ts.agregar(id, nuevo_simbolo); // int x = 9.7; -> x = 9
+                    }else{
+                         //reportar error semantico 
+                    }
+
+                   
                 }
             }else{
                 let nuevo_simbolo = new Simbolo(1, this.type, id, null);

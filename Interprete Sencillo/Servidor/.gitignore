@@ -1,2 +1,6 @@
 node_modules
 build
+src/Interprete/Expresiones/Nativas
+src/Interprete/Expresiones/AccesoVector.ts
+src/Interprete/Expresiones/listavector.ts
+src/Interprete/Instrucciones/DeclaraVect.ts

@@ -4,6 +4,7 @@ import Controlador from "../Controlador";
 import { Expresion } from "../Interfaces/Expresion";
 import { Instruccion } from "../Interfaces/Instruccion";
 import TablaSimbolos from "../TablaSimbolos/TablaSimbolos";
+import { tipo } from "../TablaSimbolos/Tipo";
 
 export default class Asignacion implements Instruccion{
 
@@ -28,13 +29,21 @@ export default class Asignacion implements Instruccion{
             //2. si existe verificamos que el valor a asignar sea del mismo tipo de la variable 
             let valor = this.valor.getValor(controlador,ts);
             let variable = ts.getSimbolo(this.identificador);
-
+            let tipo_valor = this.valor.getTipo(controlador,ts);
             if(variable?.tipo.enum_tipo == this.valor.getTipo(controlador,ts) ){
                 //3. si es del mismo tipo se asigna de lo contrario se reporta error. 
                 ts.getSimbolo(this.identificador)?.setValor(valor);
             }else{
-                //reportar error semantico 
-                return null;
+                if(variable?.tipo.enum_tipo == tipo.DOBLE && tipo_valor == tipo.ENTERO){
+                    ts.getSimbolo(this.identificador)?.setValor(valor);
+                }else if(variable?.tipo.enum_tipo == tipo.ENTERO && tipo_valor == tipo.DOBLE){
+                   
+                    ts.getSimbolo(this.identificador)?.setValor(Math.trunc(valor)); 
+                }else{
+                     //reportar error semantico 
+                     return null;
+                }
+                
             }
         }else{
             //reportar error semantico 

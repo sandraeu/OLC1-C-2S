@@ -21,6 +21,7 @@ export default class Funcion extends Simbolo implements Instruccion{
 
     //-- agregamos un metodo para agregar el simbolo de la funcion a la tabla de simbolos
     agregarFuncionTS(ts: TablaSimbolos){
+        console.log(`guardamos ${this.identificador}`);
          if(!(ts.existe(this.identificador))){
              ts.agregar(this.identificador, this);
          }else{
@@ -32,8 +33,9 @@ export default class Funcion extends Simbolo implements Instruccion{
     ejecutar(controlador: Controlador, ts: TablaSimbolos) {
        // Aqui solo necesitamos mandar a ejecutar las instrucciones ya que las validaciones para llegar hasta aca se hacen en la clase llamada
        let ts_local = new TablaSimbolos(ts);
-
+        console.log("estamos en funcion");
        for(let inst of this.lista_instrucciones){
+           
             let retorno = inst.ejecutar(controlador,ts_local);
 
             if(retorno != null){

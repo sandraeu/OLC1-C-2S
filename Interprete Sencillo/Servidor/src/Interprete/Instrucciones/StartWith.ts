@@ -18,7 +18,7 @@ export default class StartWith implements Instruccion{
 
     
     ejecutar(controlador: Controlador, ts: TablaSimbolos) {
-        throw new Error("Method not implemented.");
+        this.llamada.ejecutar(controlador,ts);
     }
     recorrer(): Nodo {
         throw new Error("Method not implemented.");

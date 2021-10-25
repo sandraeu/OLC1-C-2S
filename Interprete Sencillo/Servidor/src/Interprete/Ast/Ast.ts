@@ -1,6 +1,7 @@
 import Controlador from "../Controlador";
 import Declaracion from "../Instrucciones/Declaracion";
 import Funcion from "../Instrucciones/Funcion";
+import StartWith from "../Instrucciones/StartWith";
 import { Instruccion } from "../Interfaces/Instruccion";
 import TablaSimbolos from "../TablaSimbolos/TablaSimbolos";
 import Nodo from "./Nodo";
@@ -15,6 +16,7 @@ export default class Ast implements Instruccion{
 
 
     ejecutar(controlador: Controlador, ts: TablaSimbolos) {
+        let bandera_startwith = false;
         //1era pasada vamos a guardar las funciones y metodos del programa
         for(let instruccion of this.lista_instrucciones){
             if(instruccion instanceof Funcion){
@@ -34,7 +36,17 @@ export default class Ast implements Instruccion{
 
         //3ra pada. ejecutamos todas las demas instrucciones
         for(let instruccion of this.lista_instrucciones){
-            if(!(instruccion instanceof Declaracion)){
+            if(instruccion instanceof StartWith && !bandera_startwith){
+                instruccion.ejecutar(controlador,ts);
+                bandera_startwith = true;
+            }else if(bandera_startwith){
+                //error solo se puede tener un start with  
+
+                //start with suma(2,3);
+                //start with resta(8,5);
+            }
+            
+            if(!(instruccion instanceof Declaracion) && !(instruccion instanceof Funcion)){
                 instruccion.ejecutar(controlador,ts);
             }
         }
