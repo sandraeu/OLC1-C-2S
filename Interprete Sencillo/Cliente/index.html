@@ -50,9 +50,21 @@
         <br><br>
 
         <button class="tablink" onclick="openPage('TablaSim')">Tabla de Simbolos</button>
+        <button class="tablink" onclick="openPage('AST')">AST</button>
+        <button class="tablink" onclick="openPage('Errores')">Reporte Errores</button>
   
     
         <div id="TablaSim" class="tabcontent" style="background-color: #06141d60;">
+          <table class="table table-striped table-dark" id= "tablasimbols" style="width:100%" bordered="true">
+      
+          </table>
+        </div>
+
+        <div id="AST" class="tabcontent" style="background-color: #06141d60;">
+          <div id="graph" style="text-align: center;"></div>
+        </div>
+
+        <div id="Errores" class="tabcontent" style="background-color: #06141d60;">
           
         </div>
     
@@ -62,6 +74,11 @@
     <script src="funcionalidad.js"></script>
     <script src="node_modules/codemirror/lib/codemirror.js"></script> 
     <script src="node_modules/codemirror/mode/javascript/javascript.js"></script>
+
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="https://unpkg.com/@hpcc-js/wasm@0.3.11/dist/index.min.js"></script>
+    <script src="https://unpkg.com/d3-graphviz@3.0.5/build/d3-graphviz.js"></script>
+    
     <script>
         var editor = CodeMirror.fromTextArea(document.getElementById("floatingTextarea2"), {
           lineNumbers: true,  

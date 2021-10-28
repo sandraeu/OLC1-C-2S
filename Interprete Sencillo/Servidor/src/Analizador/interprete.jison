@@ -117,7 +117,16 @@ caracter         (\'({escape2} | {aceptacion2})\')
 
 
 <<EOF>>               return 'EOF'
-.                     return 'ERROR'
+.                     { console.log("Error Lexico "+yytext
+                        +" linea "+yylineno
+                        +" columna "+(yylloc.last_column+1));
+
+                        new errores.default('Lexico', 'El caracter ' + yytext 
+                                + ' no forma parte del lenguaje', 
+                                yylineno+1, 
+                                yylloc.last_column+1); 
+                                      
+                        }
 
 /lex
 
@@ -155,6 +164,8 @@ caracter         (\'({escape2} | {aceptacion2})\')
       const retorno = require('../Interprete/Instrucciones/SentenciasTransferencia/Return');
 
       const tipoof = require('../Interprete/Expresiones/Nativas/Typeof');
+
+       const errores = require('../Interprete/Ast/Errores')
 %}
 
 /* PRECEDENCIA */
@@ -195,6 +206,13 @@ instruccion : declaracion   { $$ =  $1; }
             | llamada PYC   { $$ = $1; } 
             | RETURN PYC        { $$ = new retorno.default(null); } 
             | RETURN e PYC      { $$ = new retorno.default($2); } 
+            | error         { console.log("Error Sintactico" + yytext 
+                                    + "linea: " + this._$.first_line 
+                                    + "columna: " + this._$.first_column); 
+                        
+                                new errores.default("Sintactico", "No se esperaba el caracter "+ yytext , 
+                                                this._$.first_line ,this._$.first_column);            
+                            }
             ;
 
 declaracion : tipo lista_ids IGUAL e PYC  { $$ = new declaracion.default($1, $2, $4,  @1.first_line, @1.last_column);}  

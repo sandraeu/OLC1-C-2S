@@ -420,7 +420,18 @@ export default class Aritmetica extends Operacion implements Expresion{
     }
 
     recorrer(): Nodo {
-        throw new Error("Method not implemented.");
+        let padre = new Nodo("Exp","");
+
+        if(this.expU){ //-1
+            padre.AddHijo(new Nodo(this.signo_operador,""));
+            padre.AddHijo(this.exp1.recorrer());
+        }else{ // 1+1
+            padre.AddHijo(this.exp1.recorrer());
+            padre.AddHijo(new Nodo(this.signo_operador,""));
+            padre.AddHijo(this.exp2.recorrer());
+        }
+        
+       return padre;
     }
 
 }

@@ -79,6 +79,19 @@ export default class Declaracion implements Instruccion{
         return null;
     }
     recorrer(): Nodo {
-        throw new Error("Method not implemented.");
+       let padre = new Nodo("DECLARACION", "");
+
+       padre.AddHijo(new Nodo(this.type.nombre_tipo, ""));
+
+       let hijos_id = new Nodo("Ids",""); 
+       for(let id of this.lista_ids){
+        hijos_id.AddHijo(new Nodo(id, ""));
+       }
+       padre.AddHijo(hijos_id);
+       if(this.expresion != null){
+           padre.AddHijo(this.expresion.recorrer())
+       }
+
+       return padre;
     }
 }

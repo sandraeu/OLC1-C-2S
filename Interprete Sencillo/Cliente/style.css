@@ -127,8 +127,8 @@ body, html {
 	padding: 14px 16px;
 	font-size: 17px;
 	width: 25%;
-    margin-left: 10%;
-    margin-right: 10%;
+    margin-left: 0%;
+    margin-right: 0%;
   }
   
   .tablink:hover {
@@ -141,6 +141,6 @@ body, html {
 	display: none;
 	padding: 100px 20px;
 	height: 100%;
-    margin-left: 10%;
-    margin-right: 10%;
+    margin-left: 0%;
+    margin-right: 5%;
   }

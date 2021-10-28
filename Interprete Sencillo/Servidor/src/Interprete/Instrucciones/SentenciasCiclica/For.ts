@@ -29,7 +29,7 @@ export default class For implements Instruccion {
         let ts_local = new TablaSimbolos(ts);
         let temp = controlador.sent_ciclica;
         controlador.sent_ciclica = true;
-        console.log("estamos en el for")
+        //console.log("estamos en el for")
         this.dec_asig.ejecutar(controlador,ts_local);
 
         //for(int i = 0; i < 10; i++){//int k; }
@@ -57,6 +57,22 @@ export default class For implements Instruccion {
 
     }
     recorrer(): Nodo {
-        throw new Error("Method not implemented.");
+       let padre = new Nodo("SENT FOR", "");
+
+       padre.AddHijo(new Nodo("for", ""));
+       padre.AddHijo(new Nodo("(", ""));
+       padre.AddHijo(this.dec_asig.recorrer());
+       padre.AddHijo(this.condicion.recorrer());
+       padre.AddHijo(this.actualizacion.recorrer());
+       padre.AddHijo(new Nodo(")", ""));
+       
+       let hijo_instrucciones = new Nodo("Instrucciones","");
+        for(let inst of this.lista_instrucciones){
+            hijo_instrucciones.AddHijo(inst.recorrer());
+        }
+
+        padre.AddHijo(hijo_instrucciones);
+
+       return padre;
     }
 }

@@ -1,3 +1,4 @@
+import { lista_errores } from "./Lista_Errores";
 
 export default class Errores{
 
@@ -11,5 +12,8 @@ export default class Errores{
         this.descripcion = descripcion;
         this.linea = linea;
         this.columna = columna;
+        if(tipo == "Sintactico" || tipo == "Lexico"){
+            lista_errores.Errores.push(this);
+        }
     }
 }

@@ -124,7 +124,15 @@ export default class Llamada implements Instruccion, Expresion{
 
 
     recorrer(): Nodo {
-        throw new Error("Method not implemented.");
+        let padre = new Nodo("Llamada",""); 
+        padre.AddHijo(new Nodo(this.identificador,""));
+        padre.AddHijo(new Nodo("(",""));
+
+        //TODO: AGREGAR NODOS HIJOS DE PARAMETROS
+        
+        padre.AddHijo(new Nodo(")",""));
+        
+       return padre;
     } 
 
 }

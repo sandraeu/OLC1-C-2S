@@ -33,7 +33,7 @@ export default class Funcion extends Simbolo implements Instruccion{
     ejecutar(controlador: Controlador, ts: TablaSimbolos) {
        // Aqui solo necesitamos mandar a ejecutar las instrucciones ya que las validaciones para llegar hasta aca se hacen en la clase llamada
        let ts_local = new TablaSimbolos(ts);
-        console.log("estamos en funcion");
+        //console.log("estamos en funcion");
        for(let inst of this.lista_instrucciones){
            
             let retorno = inst.ejecutar(controlador,ts_local);
@@ -47,6 +47,26 @@ export default class Funcion extends Simbolo implements Instruccion{
     }
 
     recorrer(): Nodo {
-        throw new Error("Method not implemented.");
+        let padre = new Nodo("Funcion",""); 
+        padre.AddHijo(new Nodo(this.tipo.nombre_tipo,""));
+        padre.AddHijo(new Nodo(this.identificador,""));
+
+        padre.AddHijo(new Nodo("(",""));
+
+        //TODO: AGREGAR NODOS PARAMETROS SOLO SI HAY
+
+        padre.AddHijo(new Nodo(")",""));
+
+        padre.AddHijo(new Nodo("{",""));
+
+        let hijo_instrucciones = new Nodo("Instrucciones","");
+        for(let inst of this.lista_instrucciones){
+            hijo_instrucciones.AddHijo(inst.recorrer());
+        }
+        
+        padre.AddHijo(hijo_instrucciones);
+        padre.AddHijo(new Nodo("}",""));
+        
+       return padre;
     }
 }

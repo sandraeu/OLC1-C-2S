@@ -31,6 +31,8 @@ function compilar(){
         const response = JSON.parse(xhr.responseText);
         document.getElementById("consola").value = response.consola;      
         console.log(response.consola);
+        //tabla de simbolos en index
+        document.getElementById("tablasimbols").innerHTML = response.ts;
     }else{
       alert("Se ha producido un error al ejecutar el programa.")
     }
@@ -45,8 +47,38 @@ function compilar(){
     
 }
 
+function recorrer_ast(){
+  
+  var xhr2 = new XMLHttpRequest();
+  xhr2.onload = () => {
+
+    // print JSON response
+    if (xhr2.status >= 200 && xhr2.status < 300) {
+        // parse JSON
+        const response = JSON.parse(xhr2.responseText); 
+        console.log(response.ast);
+        d3.select("#graph").graphviz()
+          .renderDot(response.ast);
+
+    }else{
+      alert("Se ha producido un error al ejecutar el programa.")
+    }
+  };
+  const json2 = {
+    "input": editor.getValue()
+  };
+  xhr2.open('POST', 'http://localhost:3000/api/recorrer', true);
+  xhr2.setRequestHeader('Content-Type', 'application/json');
+  xhr2.send(JSON.stringify(json2));
+ 
+    
+}
 
 function openPage(pageName) { 
+  if(pageName == "AST"){
+    recorrer_ast();
+  }
+  
   var i, tabcontent, tablinks;
   tabcontent = document.getElementsByClassName("tabcontent");
   
